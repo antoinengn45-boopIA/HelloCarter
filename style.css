@@ -1,5 +1,343 @@
-body { background: #0f2027; color: #fff; font-family: 'Segoe UI', sans-serif; }
-.container { background: #203a43; padding: 25px; border-radius: 15px; border: 1px solid #3e5151; margin: 20px auto; max-width: 400px; }
-input { background: #2c5364; border: none; color: white; padding: 10px; margin: 5px 0; width: 90%; }
-button { background: #ff416c; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
-#captcha-zone { border: 2px dashed #ff416c; padding: 15px; margin-top: 20px; }
+/* ===========================
+   HelloCarter V2 — style.css
+   =========================== */
+
+/* --- Reset & base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Syne', sans-serif;
+  background-color: #060a10;
+  color: #e8eaf0;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Grille matricielle en fond */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0, 255, 180, 0.03) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0, 255, 180, 0.03) 40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Écrans --- */
+.screen {
+  display: none;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 36px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(0, 255, 180, 0.1);
+  border-radius: 8px;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* --- Logo & marque --- */
+.logo-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #00ffb4;
+  opacity: 0.65;
+  margin-bottom: 8px;
+}
+
+.brand {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 28px;
+  color: #e8eaf0;
+}
+
+.brand span {
+  color: #00ffb4;
+}
+
+.divider-line {
+  width: 32px;
+  height: 2px;
+  background: #00ffb4;
+  margin-bottom: 32px;
+}
+
+/* --- Labels et champs --- */
+.field-label {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #4a6070;
+  margin-bottom: 6px;
+}
+
+.field-input {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 255, 180, 0.12);
+  border-radius: 4px;
+  color: #e8eaf0;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.field-input:focus {
+  border-color: rgba(0, 255, 180, 0.45);
+}
+
+.field-input::placeholder {
+  color: #2e4050;
+}
+
+/* Supprimer les flèches du champ number */
+.field-input[type="number"]::-webkit-outer-spin-button,
+.field-input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* --- Boutons --- */
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: #00ffb4;
+  color: #060a10;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover { opacity: 0.85; }
+.btn-primary:active { transform: scale(0.985); }
+
+.btn-inline {
+  width: auto;
+  padding: 13px 18px;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+.btn-logout {
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  color: #ff4d6d;
+  border: 1px solid rgba(255, 77, 109, 0.3);
+  border-radius: 4px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-logout:hover { background: rgba(255, 77, 109, 0.08); }
+
+/* --- Messages d'état --- */
+.error-msg {
+  color: #ff4d6d;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  margin-top: -12px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+.error-msg.visible { display: block; }
+
+.success-msg {
+  color: #00ffb4;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  margin-top: 8px;
+  display: none;
+}
+
+.success-msg.visible { display: block; }
+
+/* --- Barre de statut --- */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #4a6070;
+  margin-bottom: 28px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00ffb4;
+  flex-shrink: 0;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* --- Zone captcha --- */
+.captcha-box {
+  border: 1px dashed rgba(0, 255, 180, 0.25);
+  border-radius: 6px;
+  padding: 22px;
+  margin-bottom: 22px;
+  background: rgba(0, 255, 180, 0.02);
+}
+
+.tag {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: rgba(0, 255, 180, 0.12);
+  color: #00ffb4;
+  margin-bottom: 12px;
+}
+
+.captcha-question {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: #00ffb4;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+/* --- Dashboard --- */
+.greeting {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.greeting-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: #4a6070;
+  margin-bottom: 28px;
+}
+
+.account-card {
+  border: 1px solid rgba(0, 255, 180, 0.12);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(0, 255, 180, 0.03);
+  margin-bottom: 28px;
+}
+
+.card-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #4a6070;
+  margin-bottom: 10px;
+}
+
+.balance {
+  font-family: 'Space Mono', monospace;
+  font-size: 44px;
+  font-weight: 700;
+  color: #00ffb4;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.balance-currency {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #4a6070;
+  margin-left: 4px;
+  vertical-align: super;
+}
+
+.account-info {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: #3a5060;
+}
+
+.separator {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin: 24px 0;
+}
+
+.section-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #4a6070;
+  margin-bottom: 14px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.input-row .field-input {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+/* --- Note légale --- */
+.legal-note {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #2e4050;
+  margin-top: 18px;
+  line-height: 1.6;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .screen { padding: 28px 22px; }
+  .brand { font-size: 30px; }
+  .balance { font-size: 34px; }
+}
