@@ -4,8 +4,8 @@
 
 /* --- Identifiants de connexion --- */
 const CREDENTIALS = {
-  email: "antoinecarter431@gmail.com",
-  password: "Cacaobanane2"
+  email: "mathieubrussard431@gmail.com",
+  password: "chapellemanon5"
 };
 
 /* --- Banque de défis CAPTCHA --- */
