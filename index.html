@@ -10,12 +10,26 @@
     <header>
         <h1>HelloCarter</h1>
     </header>
+
     <main>
-        <div class="account-card">
-            <h2>Solde actuel</h2>
-            <p id="balance">1 250,00 €</p>
+        <div id="login-screen" class="container">
+            <h2>Connexion</h2>
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Mot de passe">
+            <button onclick="checkLogin()">Se connecter</button>
+            <p id="error-msg"></p>
+        </div>
+
+        <div id="main-app" class="container" style="display: none;">
+            <h2>Bonjour Antoine</h2>
+            <div class="account-card">
+                <p>Solde actuel</p>
+                <h3 id="balance">1 250,00 €</h3>
+            </div>
+            <button onclick="logout()">Déconnexion</button>
         </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
