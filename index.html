@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HelloCarter - Banque en ligne</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>HelloCarter</h1>
-    </header>
+    <header><h1>HelloCarter</h1></header>
 
-    <main>
-        <div id="login-screen" class="container">
-            <h2>Connexion</h2>
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Mot de passe">
-            <button onclick="checkLogin()">Se connecter</button>
-            <p id="error-msg"></p>
+    <div id="login-screen" class="container">
+        <h2>Connexion</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="checkLogin()">Se connecter</button>
+    </div>
+
+    <!-- Application -->
+    <div id="main-app" class="container" style="display: none;">
+        <h2>Bonjour Antoine</h2>
+        <div class="account-card">
+            <p>Solde : <span id="balance">1 250,00</span> €</p>
+        </div>
+        
+        <div id="settings">
+            <h3>Paramètres</h3>
+            <input type="number" id="new-balance" placeholder="Nouvelle somme">
+            <button onclick="updateBalance()">Mettre à jour solde</button>
         </div>
 
-        <div id="main-app" class="container" style="display: none;">
-            <h2>Bonjour Antoine</h2>
-            <div class="account-card">
-                <p>Solde actuel</p>
-                <h3 id="balance">1 250,00 €</h3>
-            </div>
-            <button onclick="logout()">Déconnexion</button>
+        <div id="captcha-zone">
+            <h3>Défi de sécurité</h3>
+            <p id="captcha-text"></p>
+            <input type="text" id="captcha-input" placeholder="Réponse...">
+            <button onclick="verifyCaptcha()">Valider défi</button>
         </div>
-    </main>
-
+        <button onclick="logout()">Déconnexion</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
