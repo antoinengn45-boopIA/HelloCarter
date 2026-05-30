@@ -1,39 +1,95 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelloCarter — Banque Sécurisée</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header><h1>HelloCarter</h1></header>
 
-    <div id="login-screen" class="container">
-        <h2>Connexion</h2>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Mot de passe">
-        <button onclick="checkLogin()">Se connecter</button>
+  <!-- ÉCRAN 1 : CONNEXION -->
+  <div id="screen-login" class="screen active">
+    <div class="logo-tag">Système bancaire v2.0</div>
+    <h1 class="brand">Hello<span>Carter</span></h1>
+    <div class="divider-line"></div>
+
+    <label class="field-label" for="email">Adresse email</label>
+    <input class="field-input" type="email" id="email" placeholder="utilisateur@domain.com" />
+
+    <label class="field-label" for="password">Mot de passe</label>
+    <input class="field-input" type="password" id="password" placeholder="••••••••••" />
+
+    <p class="error-msg" id="login-error">Identifiants incorrects. Accès refusé.</p>
+
+    <button class="btn-primary" id="btn-login">Accéder au compte</button>
+
+    <p class="legal-note">
+      Connexion sécurisée TLS 2.0 · HelloCarter Financial SA
+    </p>
+  </div>
+
+  <!-- ÉCRAN 2 : CAPTCHA -->
+  <div id="screen-captcha" class="screen">
+    <div class="logo-tag">Vérification de sécurité</div>
+    <h1 class="brand">Hello<span>Carter</span></h1>
+    <div class="divider-line"></div>
+
+    <div class="status-bar">
+      <span class="status-dot"></span> Défi de sécurité actif
     </div>
 
-    <!-- Application -->
-    <div id="main-app" class="container" style="display: none;">
-        <h2>Bonjour Antoine</h2>
-        <div class="account-card">
-            <p>Solde : <span id="balance">1 250,00</span> €</p>
-        </div>
-        
-        <div id="settings">
-            <h3>Paramètres</h3>
-            <input type="number" id="new-balance" placeholder="Nouvelle somme">
-            <button onclick="updateBalance()">Mettre à jour solde</button>
-        </div>
+    <div class="captcha-box">
+      <span class="tag">Défi aléatoire</span>
+      <p class="captcha-question" id="captcha-question">—</p>
 
-        <div id="captcha-zone">
-            <h3>Défi de sécurité</h3>
-            <p id="captcha-text"></p>
-            <input type="text" id="captcha-input" placeholder="Réponse...">
-            <button onclick="verifyCaptcha()">Valider défi</button>
-        </div>
-        <button onclick="logout()">Déconnexion</button>
+      <label class="field-label" for="captcha-answer">Votre réponse</label>
+      <input class="field-input" type="text" id="captcha-answer" placeholder="Entrez votre réponse..." />
+
+      <p class="error-msg" id="captcha-error">Réponse incorrecte. Réessayez.</p>
+
+      <button class="btn-primary" id="btn-captcha">Valider le défi</button>
     </div>
-    <script src="script.js"></script>
+
+    <p class="legal-note">
+      Cette étape protège votre compte contre les accès non autorisés.
+    </p>
+  </div>
+
+  <!-- ÉCRAN 3 : DASHBOARD -->
+  <div id="screen-dashboard" class="screen">
+    <div class="status-bar">
+      <span class="status-dot"></span> Session active · HelloCarter Secure
+    </div>
+
+    <h2 class="greeting">Bonjour, Antoine.</h2>
+    <p class="greeting-sub">Dernière connexion : aujourd'hui</p>
+
+    <div class="account-card">
+      <p class="card-label">Solde disponible</p>
+      <p class="balance"><span id="balance-amount">1 250,00</span><span class="balance-currency">€</span></p>
+      <p class="account-info">Compte courant · **** **** 4312</p>
+    </div>
+
+    <hr class="separator" />
+
+    <p class="section-title">Modifier le solde</p>
+    <div class="input-row">
+      <input class="field-input" type="number" id="new-balance" placeholder="Nouveau montant en €" />
+      <button class="btn-primary btn-inline" id="btn-update">Mettre à jour</button>
+    </div>
+    <p class="success-msg" id="balance-success">✓ Solde mis à jour avec succès.</p>
+
+    <hr class="separator" />
+
+    <button class="btn-logout" id="btn-logout">⏻ &nbsp;Déconnexion</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>    <script src="script.js"></script>
 </body>
 </html>
