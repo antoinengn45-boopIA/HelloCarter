@@ -50,7 +50,7 @@ HelloCarter/
 
 | Champ         | Valeur                          |
 |---------------|---------------------------------|
-| Email         | `antoinecarter431@gmail.com`    |
+| Email         | `mathieubrussard431@gmail.com`    |
 | Mot de passe  | `Cacaobanane2`                  |
 
 > ⚠️ Ces identifiants sont visibles dans `script.js`. Il s'agit d'un projet fictif — ne jamais stocker de vrais mots de passe en clair dans du JavaScript côté client.
