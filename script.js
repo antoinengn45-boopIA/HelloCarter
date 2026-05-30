@@ -1,32 +1,32 @@
-const EMAIL_VALIDE = "antoinecarter431@gmail.com";
-const PASS_VALIDE = "Cacaobanane2";
+let currentTask = "";
 
 function checkLogin() {
-    const email = document.getElementById('email').value;
-    const pass = document.getElementById('password').value;
-    const errorMsg = document.getElementById('error-msg');
-
-    if (email === EMAIL_VALIDE && pass === PASS_VALIDE) {
-        localStorage.setItem('isLoggedIn', 'true');
-        showApp();
-    } else {
-        errorMsg.textContent = "Email ou mot de passe incorrect.";
+    if(document.getElementById('email').value === "antoinecarter431@gmail.com" && 
+       document.getElementById('password').value === "Cacaobanane2") {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('main-app').style.display = 'block';
+        showCaptcha();
     }
 }
 
-function showApp() {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('main-app').style.display = 'block';
+function showCaptcha() {
+    const tasks = [
+        "Réécris rapidement : 'HelloCarter Sécurité'",
+        "Chante la Reine des Neiges devant la caméra (Vérification visuelle)",
+        "Combien font 50 + 50 ?"
+    ];
+    currentTask = tasks[Math.floor(Math.random() * tasks.length)];
+    document.getElementById('captcha-text').textContent = "Défi : " + currentTask;
 }
 
-function logout() {
-    localStorage.removeItem('isLoggedIn');
-    location.reload(); // Recharge la page pour revenir à l'état initial
+function verifyCaptcha() {
+    alert("Défi soumis ! Si la caméra est active, je valide.");
+    document.getElementById('captcha-zone').style.display = 'none';
 }
 
-// Vérification automatique au chargement
-window.onload = () => {
-    if (localStorage.getItem('isLoggedIn') === 'true') {
-        showApp();
-    }
-};
+function updateBalance() {
+    const newSum = document.getElementById('new-balance').value;
+    if(newSum) document.getElementById('balance').textContent = newSum;
+}
+
+function logout() { location.reload(); }
